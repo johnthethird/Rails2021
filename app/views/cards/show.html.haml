@@ -1,0 +1,26 @@
+// This is a HAML template https://haml.info/tutorial.html
+
+// This will change the title of the HTML page (see application.html.erb layout) 
+- content_for :title, card.title
+
+%section.section
+  .container
+    %nav.breadcrumb
+      %ul
+        %li 
+          %a(href="/cards") Cards
+        %li
+          %a(href="#{card_path(card)}")= card.title
+  
+    .columns.is-centered
+      .column
+        %img{src: card.image_url}
+      // So, here we want the BG to be white, instead of making new CSS we can just inline a style here
+      .column{style: 'background: ghostwhite'}
+        %h1.title.is-1
+          = card.title
+        %h2.subtitle
+          = card.subtitle
+        .content.trix-content
+          = card.content
+    = link_to 'Edit', edit_card_path(card), class: 'button is-link'

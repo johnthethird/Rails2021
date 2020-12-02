@@ -1,0 +1,13 @@
+<% if notice %>
+  <div class="m-4 notification is-success" _="on click add .fadeMe then wait 500ms then remove me">
+    <button class="delete"></button>
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="m-4 notification is-danger" _="on click add .fadeMe then wait 500ms then remove me">
+    <button class="delete"></button>
+    <%= alert %>
+  </div>
+<% end %>

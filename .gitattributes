@@ -1,0 +1,15 @@
+# https://medium.com/@clarkbw/managing-generated-files-in-github-1f1989c09dfd
+# See https://git-scm.com/docs/gitattributes for more about git attribute files.
+
+# Mark the database schema as having been generated.
+db/schema.rb linguist-generated
+db/structure.sql linguist-generated
+
+# Mark the yarn lockfile as having been generated.
+yarn.lock linguist-generated
+
+# Mark the yarn lockfile as having been generated.
+Gemfile.lock linguist-generated
+
+# Mark any vendored files as having been vendored.
+vendor/* linguist-vendored

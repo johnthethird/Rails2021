@@ -1,0 +1,91 @@
+// Bulma CSS https://bulma.io/documentation
+
+// Set your brand colors using SASS variables BEFORE the @import statement below
+$primary: #af1dc2;
+$info: #fa7c91;
+$success: #3d9435;
+$warning: yellow;
+$danger: red;
+$light: #ccc;
+$dark: #444;
+
+// Update font family
+$family-sans-serif: "Calibri", "Arial";
+
+@import "bulma/bulma.sass";
+@import "./trix.scss";
+
+// Utility for AlpineJS
+[x-cloak] {
+  display: none;
+}
+
+// Now that we imported Bulma Trix etc, override some things for our specific design:
+:root {
+  --bg: #071e36;
+  --card-bg: #041221;
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+.navbar-menu .selected {
+  font-weight: bold;
+}
+
+.box {
+  background: var(--card-bg);
+}
+
+input::placeholder {
+  color: antiquewhite;
+}
+
+/* Card start*/
+.card {
+  overflow: hidden;
+  background: ghostwhite;
+  color: var(--bg);
+}
+
+.card.large {
+  border-radius: 5px;
+}
+
+.title.no-padding {
+  margin-bottom: 0 !important;
+}
+
+.footer {
+  background: var(--card-bg);
+  color: ghostwhite;
+}
+
+.footer p,
+strong {
+  color: ghostwhite;
+}
+
+.footer a:hover {
+  color: crimson;
+}
+
+.fa {
+  color: ghostwhite;
+  margin: 10px;
+}
+
+.pagy-bulma-nav a {
+  color: ghostwhite;
+}
+
+.fadeMe {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+.about-bg {
+  background-image: url("~images/logo.png");
+}

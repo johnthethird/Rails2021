@@ -1,0 +1,30 @@
+= form_with model: card do |f|
+  - unless card.valid?
+    .field 
+      .m-4.notification.is-danger
+        %ul
+          - card.errors.full_messages.each do |msg|
+            %li= msg
+  .field
+    .label= f.label 'Card Title'
+    .control
+      = f.text_field :title, class: 'input', placeholder: 'Title', required: false
+  .field
+    .label= f.label 'Card Subtitle'
+    .control
+      = f.text_field :subtitle, class: 'input', placeholder: 'Subtitle'
+  -# .field
+  -#   .label= f.label 'Card Body'
+  -#   .control
+  -#     = f.text_area :body, class: 'textarea is-medium'
+  .field
+    .label= f.label 'Trix Editor'
+    .control
+      = f.rich_text_area :content
+      -# = f.text_field :body, id: 'bodyTrix', type: 'hidden'
+      -# %trix-editor{input: 'bodyTrix'}
+  .field.is-grouped.is-justify-content-flex-end.pb-6
+    .control
+      = link_to 'Cancel', card_path(card), class: 'button is-link is-light'
+    .control
+      = submit_tag 'Save', class: 'button is-link'

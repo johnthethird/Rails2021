@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= [(yield(:title) if content_for?(:title)), AppConfig.app_name].compact.join(" - ") %></title>
+    <meta charset="utf-8" />
+    <%# <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" /> %>
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="webkit" name="renderer" />
+    <meta content="on" http-equiv="cleartype" />
+    <meta content="True" name="HandheldFriendly" />
+    <meta content="320" name="MobileOptimized" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">    
+
+    <%= csrf_meta_tags unless response.cache_control[:public] %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag unless response.cache_control[:public] %>
+
+    <script type="text/javascript">
+      // Maybe can do this to support IE 11 and lower? Or who cares?
+      if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        document.write('<script src="https://unpkg.com/core-js-bundle@3.7.0/minified.js" crossorigin="anonymous" defer><\/script>');
+        //document.write('<script src="https://unpkg.com/regenerator-runtime@0.13.7/runtime.js" crossorigin="anonymous" defer><\/script>');
+      }
+
+      function ready(fn) {
+        document.readyState !== "loading"
+          ? setTimeout(fn, 0)
+          : document.addEventListener("DOMContentLoaded", fn);
+      }
+    </script>
+
+    <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" crossorigin="anonymous" defer></script>
+
+    <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/htmx.org@0.3.0/dist/htmx.min.js" crossorigin="anonymous" defer></script>
+    <!-- Using local copy because of a bug -->
+    <%# src="https://unpkg.com/hyperscript.org@0.0.2"  crossorigin="anonymous" defer %>
+    <%= javascript_pack_tag 'hyperscript', defer: true %>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpine-turbolinks-adapter@0.3.x/dist/alpine-turbolinks-adapter.min.js" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" crossorigin="anonymous" defer></script>
+
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render(NavComponent.new(current_user: current_user, current_path: current_path)) %>
+    <%= render "flash" %>
+    <main>
+      <div class="">
+        <%= yield %>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <div>
+            <a href="#"><i class="fa fa-github-alt fa-lg" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-youtube fa-lg" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
+          </div>
+          <p>
+            The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. <br>
+          </p>
+        </div>
+      </div>
+    </footer>    
+  </body>
+</html>

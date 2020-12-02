@@ -1,0 +1,32 @@
+<!-- Because we are rendering this with 'render cards', there will be a "card" local variable available here, MAGIC! -->
+<div class="column is-4">
+  <div class="card large">
+    <div class="card-image">
+      <figure class="image is-16by9">
+        <%= image_tag card.image_or_default, alt: 'Image' %>
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="https://avatars.dicebear.com/api/initials/john%20doe.svg" alt="Image" />
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4 no-padding">
+            <!-- This is the Rails magic way of doing it, which creates a <a> tag for you -->
+            <%= link_to card.title, card %>
+            <!-- or you could also say this -->
+            <!--  <a href="<%= card_path(card) %>"><%= card.title %></a>  -->
+          </p>
+          <p></p>
+          <p class="subtitle is-6"><%= card.subtitle %></p>
+        </div>
+      </div>
+      <div class="content">
+        <%= card.content %>
+      </div>
+    </div>
+  </div>
+</div>

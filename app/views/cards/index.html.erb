@@ -1,0 +1,14 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column has-text-centered">
+        <h1 class="title" style="color: ghostwhite;">Cards Layout Example</h1>
+        <br />
+      </div>
+    </div>
+    <div class="row columns is-multiline">
+      <%= render cards, locals: {pagy: pagy} %>
+      <%= raw pagy_bulma_nav(pagy) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.section
+  .container
+    .columns
+      .column.has-text-centered
+        %h1.title(style="color: ghostwhite;") Search
+        .field
+          %p.control.has-icons-left
+            -# This is an alternate way of writing HAML, using () and attr="value" instead of Ruby hash syntax {} and attr: "value"
+            %input.input(name="q" value="#{params[:q]}" placeholder="Search Query" hx-get="/cards/search" hx-target="#results" hx-select="#results" hx-trigger="keyup changed delay:250ms")
+            %span.icon.is-small.is-left
+              %i.fas.fa-search
+    = render partial: 'search_results', locals: {cards: cards, pagy: pagy}

@@ -1,0 +1,32 @@
+.bundle
+.env
+.env.*
+.git
+.gitignore
+.ruby-version
+.DS_Store
+*.swp
+*~
+
+node_modules
+vendor/bundle
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+
+public/assets
+public/packs
+public/javascripts
+public/system
+

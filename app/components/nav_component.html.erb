@@ -1,0 +1,64 @@
+<nav class="navbar is-primary" x-data="{ open: false }" x-on:keydown.window.escape="open = false" x-on:click.away="open = false">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="<%= AppConfig.logo_url %>" alt="Logo">
+      </a>
+      <a class="navbar-burger burger" x-bind:class="{'is-active': open == true}" x-on:click="open = !open">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>    
+    </div>
+    <div class="navbar-menu" x-bind:class="{'is-active': open == true}" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">
+      <div class="navbar-start">
+        <% nav_links.each do |link| %>
+          <%= link_to link[:title], link[:href], class: "navbar-item #{link[:selected]}" %>
+        <% end %>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More
+          </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              About
+            </a>
+            <% if is_admin? %>
+              <a class="navbar-item" href="/avo">
+                Admin
+              </a>
+              <hr class="navbar-divider">
+            <% end %>
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <% if is_logged_in? %>
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <figure class="image is-32x32"><img class="is-rounded" src="<%= current_user.avatar_url_or_default %>"></figure>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/auth/logout">
+                Logout
+              </a>
+            </div>
+          <div>
+        </div>
+      <% else %>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <%= button_to 'Login', '/auth/auth0', {method: :post, class: "button is-light"} %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
