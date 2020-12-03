@@ -32,8 +32,8 @@ class Auth0Controller < ApplicationController
     redirect_to root_url, notice: "Logged out!"
   end
 
-  def dev_login
-    if Rails.env.development? 
+  def login_as
+    if Rails.env.development? || Rails.env.test?
       user = if params[:user_id].blank?
         User.all.order(:id).first
       else 
@@ -42,7 +42,7 @@ class Auth0Controller < ApplicationController
       session[:current_user_id] = user.id
       redirect_to root_url, notice: "Logged in as #{user.email} [id:#{user.id}]"
     else 
-      redirect_to root_url, alert: 'dev_login only available in development mode!'
+      redirect_to root_url, alert: 'dev_login not available in production mode!'
     end
   end
 

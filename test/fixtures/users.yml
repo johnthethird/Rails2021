@@ -1,0 +1,9 @@
+regular:
+  firstname: Roger
+  lastname: Regular
+  email: regular@example.com
+admin:
+  firstname: Allen
+  lastname: Administrator
+  email: admin@example.com
+  status: admin

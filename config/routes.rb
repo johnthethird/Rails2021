@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'auth/auth0/callback' => 'auth0#callback'
   get 'auth/failure' => 'auth0#failure'
   get 'auth/logout' => 'auth0#logout'
-  get 'auth/dev_login' => 'auth0#dev_login'
+  get 'auth/login_as' => 'auth0#login_as'
   
   get 'home', to: 'home#show'
   get 'about', to: 'home#about'

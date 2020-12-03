@@ -45,10 +45,11 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrad
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     truncate -s 0 /var/log/*log
 
+ENV LANG=C.UTF-8 \
+  LANGUAGE=C.UTF-8 
+
 # Configure bundler
-ENV LANG=en_US.UTF-8 \
-  LANGUAGE=en_US.UTF-8 \
-  BUNDLE_JOBS=4 \
+ENV BUNDLE_JOBS=8 \
   BUNDLE_RETRY=3
 
 # Uncomment this line if you store Bundler settings in the project's root

@@ -82,7 +82,8 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  # Disabling this because https://avdi.codes/run-rails-6-system-tests-in-docker-using-a-host-browser/
+  # gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
