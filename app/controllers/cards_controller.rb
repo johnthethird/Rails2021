@@ -1,6 +1,4 @@
 class CardsController < ApplicationController
-  include Secured
-  before_action :logged_in_using_omniauth?, except: %w{index search show}
 
   def index
     pagy, cards = pagy(Card.all.with_rich_text_content_and_embeds.order("updated_at DESC"), items: 30, size: [])
@@ -43,11 +41,13 @@ class CardsController < ApplicationController
 
   def edit
     card = Card.find(params[:id])
+    authorize card
     render locals: {card: card}
   end
 
   def update
     card = Card.find(params[:id])
+    authorize card
 
     if card.update(card_params)
       # The t method is for i18n (Internationalization) or having your app work in multiple languages

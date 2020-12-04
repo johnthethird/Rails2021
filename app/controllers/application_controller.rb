@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   include Pagy::Backend
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
   before_action do
     if Rails.env.development?
       # Write out the session object to the log for debugging
@@ -20,16 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def is_admin?
-    is_logged_in? && current_user.is_admin?
-  end
-  helper_method :is_admin?
-
-  def is_logged_in?
-    current_user.present?
-  end
-  helper_method :is_logged_in?
-
+  
   def current_user
     @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
   end
@@ -46,5 +40,12 @@ class ApplicationController < ActionController::Base
   
   def not_found
     raise ActiveRecord::RecordNotFound, "Not Found"
+  end  
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end  
 end

@@ -27,7 +27,7 @@ setup-db:
 
 # Run a rails command like db:migrate inside the container
 rails *CMD='-T':
-	# Using exec here so that we reuse the already running rails container for speed
+	@# Using exec here so that we reuse the already running rails container for speed
 	docker-compose exec rails bin/rails {{CMD}}
 
 # Run bundle command inside container
