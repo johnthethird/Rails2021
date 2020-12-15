@@ -14,10 +14,11 @@ class GenericResult
   end
 
   # https://cobwwweb.com/dynamic-attributes-on-instances-in-ruby
-  def initialize(attributes={})
+  def initialize(attributes = {})
     attributes.each do |attr, value|
       # Setter
       define_singleton_method("#{attr}=") { |val| attributes[attr] = val }
+
       # Getter
       define_singleton_method(attr) { attributes[attr] }
     end

@@ -7,35 +7,34 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     @admin = users(:admin)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get cards_url
     assert_response :success
-    assert_match "Card", @response.body
+    assert_match 'Card', @response.body
   end
 
-  test "should get show page" do
+  test 'should get show page' do
     get card_url(@card)
-  
+
     assert_match @card.title, @response.body
     assert_select 'a', 'Edit'
   end
 
-  test "should not allow creating" do
+  test 'should not allow creating' do
     assert_no_difference -> { Card.count } do
-      post cards_url, params: { card: { title: 'newcardtitle'} }
+      post cards_url, params: { card: { title: 'newcardtitle' } }
     end
-    assert_equal "302", @response.code
-    assert flash[:alert].present? 
+    assert_equal '302', @response.code
+    assert flash[:alert].present?
     assert_redirected_to root_path
   end
 
-  test "should allow creating for logged in admin" do
+  test 'should allow creating for logged in admin' do
     login_as(@admin)
     assert_difference -> { Card.count } do
-      post cards_url, params: { card: { title: 'newcardtitle'} }
+      post cards_url, params: { card: { title: 'newcardtitle' } }
     end
     assert_response :redirect
     assert flash[:alert].blank?
   end
-
 end

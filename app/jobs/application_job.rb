@@ -16,10 +16,8 @@ class ApplicationJob < ActiveJob::Base
   #   Timeout.timeout(10.minutes, JobTimeoutError) do
   #     block.call
   #   end
-  # end  
+  # end
 
   # https://github.com/steveklabnik/request_store/issues/65
-  before_perform do
-    RequestStore.clear!
-  end
+  before_perform { RequestStore.clear! }
 end

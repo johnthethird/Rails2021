@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Default admin user
-User.find_or_create_by({firstname: 'Anne', lastname: 'Admin', email: 'anne@example.com', status: 'admin'})
+User.find_or_create_by({ firstname: 'Anne', lastname: 'Admin', email: 'anne@example.com', status: 'admin' })

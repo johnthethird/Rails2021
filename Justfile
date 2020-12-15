@@ -10,6 +10,9 @@ RAILS_CONTAINER := `docker-compose ps -q rails`
 default:
 	@just --list
 
+prettier:
+	./node_modules/.bin/prettier --write '**/*.rb'
+	
 # Build the base Docker images
 build-images:
 	docker-compose build

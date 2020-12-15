@@ -1,20 +1,22 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails"
+require 'rails'
+
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_mailbox/engine'
+require 'action_text/engine'
+require 'action_view/railtie'
+require 'action_cable/engine'
+
 # Sprockets is dead. Long live Webpack.
 # require "sprockets/railtie"
-require "rails/test_unit/railtie"
+require 'rails/test_unit/railtie'
 require 'good_job/engine'
 
 # Require the gems listed in Gemfile, including any gems
@@ -24,6 +26,7 @@ Bundler.require(*Rails.groups)
 module Rails2021
   class Application < Rails::Application
     config.application_name = Rails.application.class.module_parent_name
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
@@ -46,6 +49,6 @@ module Rails2021
     # Rails 5.1 introduced CSRF tokens that change per-form.
     # Unfortunately there isn't an easy way to use them and use view caching at the same time.
     # Therefore we disable "per_form_csrf_tokens" for the time being.
-    config.action_controller.per_form_csrf_tokens = false    
+    config.action_controller.per_form_csrf_tokens = false
   end
 end

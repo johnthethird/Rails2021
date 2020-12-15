@@ -9,6 +9,6 @@ class HomeController < ApplicationController
   def about
     # For performance, you can tell the browser (or any web cache in between your server and the user's browser)
     # to cache this page for X minutes. Make sure you dont have any dynamic content on the page, like flash alerts etc.
-    expires_in 10.minutes, :public => true
+    expires_in 10.minutes, public: true
   end
 end

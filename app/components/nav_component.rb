@@ -2,10 +2,10 @@ class NavComponent < ApplicationComponent
   attr_reader :current_user, :current_path
 
   NAV_LINKS = [
-    {id: 'home', title: 'Home', path_regex: %r{^/$}, href: '/', selected: ''},
-    {id: 'cards', title: 'Cards', path_regex: %r{^/cards$}, href: '/cards', selected: ''},
-    {id: 'search', title: 'Search', path_regex: %r{^/cards/search$}, href: '/cards/search', selected: ''},
-    {id: 'about', title: 'About', path_regex: %r{^/about$}, href: '/about', selected: ''}
+    { id: 'home', title: 'Home', path_regex: %r{^/$}, href: '/', selected: '' },
+    { id: 'cards', title: 'Cards', path_regex: %r{^/cards$}, href: '/cards', selected: '' },
+    { id: 'search', title: 'Search', path_regex: %r{^/cards/search$}, href: '/cards/search', selected: '' },
+    { id: 'about', title: 'About', path_regex: %r{^/about$}, href: '/about', selected: '' }
   ]
 
   def initialize(current_user: nil, current_path: '/')
@@ -25,7 +25,6 @@ class NavComponent < ApplicationComponent
 
     # A one-line way to do this is using Ruby's tertiary conditional syntax
     # NAV_LINKS.map{|h| h[:selected] = (current_path =~ h[:path_regex]) ? 'selected' : ''; h}
-
   end
 
   def is_logged_in?

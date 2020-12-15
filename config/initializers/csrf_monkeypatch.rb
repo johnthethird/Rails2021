@@ -17,11 +17,7 @@ module ActionController
     def real_csrf_token(session)
       csrf_token = request.cookie_jar.encrypted[COOKIE_NAME] || session[:_csrf_token]
       csrf_token ||= SecureRandom.base64(AUTHENTICITY_TOKEN_LENGTH)
-      request.cookie_jar.encrypted[COOKIE_NAME] ||= {
-        value: csrf_token,
-        expires: 1.year.from_now,
-        httponly: true
-      }
+      request.cookie_jar.encrypted[COOKIE_NAME] ||= { value: csrf_token, expires: 1.year.from_now, httponly: true }
       session[:_csrf_token] = csrf_token
       Base64.strict_decode64(csrf_token)
     end

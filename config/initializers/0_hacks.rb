@@ -16,7 +16,7 @@ ActiveSupport::Reloader.to_prepare do
       class << self
         def init(current_request = nil)
           init_resources
-          @@license = LicenseManager.new({"id" => "community"}).license
+          @@license = LicenseManager.new({ 'id' => 'community' }).license
         end
       end
     end

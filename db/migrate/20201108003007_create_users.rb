@@ -1,6 +1,5 @@
 class CreateUsers < ActiveRecord::Migration[6.1]
   def up
-
     # If you dont want to learn the Rails Migration DSL, you can always just use good ol' SQL
     execute <<-SQL
       CREATE EXTENSION IF NOT EXISTS citext;

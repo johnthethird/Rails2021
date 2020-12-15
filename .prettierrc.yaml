@@ -1,0 +1,4 @@
+# https://prettier.io/docs/en/configuration.html
+# https://github.com/prettier/plugin-ruby
+
+printWidth: 120

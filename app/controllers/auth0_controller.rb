@@ -16,7 +16,7 @@ class Auth0Controller < ApplicationController
       session[:current_user_id] = result.user.id
 
       # Redirect to the URL you want after successful auth
-      redirect_to root_url, notice: "Logged in!"
+      redirect_to root_url, notice: 'Logged in!'
     else
       redirect_to root_url, alert: result.errors.full_messages.join(', ')
     end
@@ -29,33 +29,29 @@ class Auth0Controller < ApplicationController
 
   def logout
     session.delete(:current_user_id)
-    redirect_to root_url, notice: "Logged out!"
+    redirect_to root_url, notice: 'Logged out!'
   end
 
   def login_as
     if Rails.env.development? || Rails.env.test?
-      user = if params[:user_id].blank?
-        User.all.order(:id).first
-      else 
-        User.find(params[:user_id])
-      end
+      user = params[:user_id].blank? ? User.all.order(:id).first : User.find(params[:user_id])
       session[:current_user_id] = user.id
       redirect_to root_url, notice: "Logged in as #{user.email} [id:#{user.id}]"
-    else 
+    else
       redirect_to root_url, alert: 'dev_login not available in production mode!'
     end
   end
 
   private
-  # Given a hash (which is found like this: request.env['omniauth.auth']) 
+
+  # Given a hash (which is found like this: request.env['omniauth.auth'])
   # from the Auth0/Omniauth login callback, pick out what we need for a user record
   def user_params_from_omniauth(omni)
     {
       email: omni['info']['email'].downcase,
-      firstname: omni['info']['name'].split(" ").first,
-      lastname: omni['info']['name'].split(" ")[1..-1].join(" "),
+      firstname: omni['info']['name'].split(' ').first,
+      lastname: omni['info']['name'].split(' ')[1..-1].join(' '),
       avatar_url: omni['info']['image']
     }
   end
-
 end

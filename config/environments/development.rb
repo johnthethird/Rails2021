@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -21,9 +21,7 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
+    config.public_file_server.headers = { 'Cache-Control' => "public, max-age=#{2.days.to_i}" }
   else
     config.action_controller.perform_caching = false
 
@@ -53,7 +51,6 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -68,24 +65,21 @@ Rails.application.configure do
   config.action_cable.disable_request_forgery_protection = true
   config.hosts.clear
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Docker specific development configuration (.dockerenv file exists only inside a container)
   # We need to allow the Docker IP so that we can see the nifty web console in our browser when errors happen during dev
-  if File.file?("/.dockerenv")
-    host_ip = %w( 0.0.0.0/0 ::/0 ) # Everyone
+  if File.file?('/.dockerenv')
+    host_ip = %w[0.0.0.0/0 ::/0] # Everyone
 
     puts "Allowing #{host_ip} for BetterErrors and Web Console"
 
     config.web_console.permissions = host_ip
 
-    if defined?(BetterErrors::Middleware)
-      BetterErrors::Middleware.allow_ip!(host_ip)
-    end
-  end  
-
+    BetterErrors::Middleware.allow_ip!(host_ip) if defined?(BetterErrors::Middleware)
+  end
 end
