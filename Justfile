@@ -1,15 +1,22 @@
 # Justfile https://github.com/casey/just
 
+# A Justfile is a more modern version of an old skool Makefile. 
+# Any commands you need to run for this project should be put here and documented with comments.
+# That makes it easier for new folks to get up to speed on a project.
+
+# Set up some vars for easily outputing colored text to the terminal
 COL_NORM   := `tput setaf 9`
 COL_RED    := `tput setaf 1`
 COL_GREEN  := `tput setaf 2`
 COL_YELLOW := `tput setaf 3`
 RAILS_CONTAINER := `docker-compose ps -q rails`
 
-# List all recipies
+# List all available recipies
 default:
+	# The @ sign in front of a command means "dont echo the command to the screen"
 	@just --list
 
+# Run Prettier on all *.rb files. This will autoformat your Ruby into idiomatic Ruby code.
 prettier:
 	./node_modules/.bin/prettier --write '**/*.rb'
 	

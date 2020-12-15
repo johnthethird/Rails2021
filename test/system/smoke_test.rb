@@ -1,5 +1,10 @@
 require 'application_system_test_case'
 
+# These type of tests (ApplicationSystemTestCase) use an actual web browser, and auto-control it to do things like navigate to
+# pages and click buttons and links. These tests are slow, but excercise the entire app
+# from browser to Rails to database. So we use them for specific flows that absolutely need to work
+# in a production system like login, posting content, etc.
+
 class SmokeTest < ApplicationSystemTestCase
   test 'visiting all the pages' do
     visit root_url

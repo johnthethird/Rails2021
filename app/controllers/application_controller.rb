@@ -8,18 +8,18 @@ class ApplicationController < ActionController::Base
     if Rails.env.development?
       # Write out the session object to the log for debugging
       # "ap" is "amazing print" gem, which nicely formats whatever you print out
-      puts '👁 Debug Info'
-      ap(
-        {
-          request_via_turbolinks: request.headers['Turbolinks-Referrer'].present?,
-          request_via_htmx: htmx?,
-          current_path: current_path,
-          request_params: request.params,
-          session: session
-        },
-        indent: -2,
-        index: false
-      )
+      logger.debug '👁 Debug Info'
+      logger.debug ap(
+                     {
+                       request_via_turbolinks: request.headers['Turbolinks-Referrer'].present?,
+                       request_via_htmx: htmx?,
+                       current_path: current_path,
+                       request_params: request.params,
+                       session: session
+                     },
+                     indent: -2,
+                     index: false
+                   )
       # If you turn on profiling you can say this so that only logged in admins can profile pages
       # if current_user && current_user.is_admin?
       #   Rack::MiniProfiler.authorize_request
