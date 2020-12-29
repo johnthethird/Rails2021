@@ -11,11 +11,11 @@ x-app: &app
     # This makes it easy to use in other projects with other version requirements.
     dockerfile: Dockerfile.dev
     args:
-      RUBY_VERSION: "2.7.2"
+      RUBY_VERSION: "3.0.0"
       PG_MAJOR: "13"
       NODE_MAJOR: "15"
       YARN_VERSION: "1.22.5"
-      BUNDLER_VERSION: "2.1.4"
+      BUNDLER_VERSION: "2.2.3"
   environment: &env
     NODE_ENV: development
     # This notation uses the ENV var or if it doesnt exist use the default value of 'development'

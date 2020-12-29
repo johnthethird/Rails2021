@@ -13,7 +13,7 @@ RAILS_CONTAINER := `docker-compose ps -q rails`
 
 # List all available recipies
 default:
-	# The @ sign in front of a command means "dont echo the command to the screen"
+	@# The @ sign in front of a command means "dont echo the command to the screen"
 	@just --list
 
 # Run Prettier on all *.rb files. This will autoformat your Ruby into idiomatic Ruby code.
@@ -47,6 +47,10 @@ bundle *CMD:
 # Run yarn command inside container
 yarn *CMD:
 	docker-compose run --rm webpacker yarn {{CMD}}
+
+# Run bash shell inside container
+bash:
+	docker-compose run --rm rails bash 
 
 # Run test command inside container
 test *CMD:

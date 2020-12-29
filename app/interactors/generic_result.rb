@@ -1,4 +1,4 @@
-# The Civil Service gem is nice, but it forces you to declare a Result object with exactly when you are returning.
+# The Civil Service gem https://github.com/actblue/civil_service is nice, but it forces you to declare a Result object with exactly what you are returning.
 # This is a dynamic version of that so you can return any hash and it will auto-create the attributes for you.
 class GenericResult
   include ActiveModel::Model

@@ -1,8 +1,15 @@
+# Based on https://github.com/actblue/civil_service
 class RegisterUser < ApplicationInteractor
   attr_reader :user_params
 
   # RegisterUser will create a new user in the database and send any relevant emails out
   #
+  # Usage:
+  #        result = RegisterUser.new(user_params).call
+  #        if result.success?
+  #           # Do something with result.user which has the newly created user
+  #        else
+  #           # There was a problem,
   # @param [Hash] user_params
   # @option user_params [String] :email
   # @option user_params [String] :firstname
