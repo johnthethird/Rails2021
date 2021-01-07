@@ -24,30 +24,41 @@
       if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
         document.write('<script src="https://unpkg.com/core-js-bundle@3.7.0/minified.js" crossorigin="anonymous" defer><\/script>');
         //document.write('<script src="https://unpkg.com/regenerator-runtime@0.13.7/runtime.js" crossorigin="anonymous" defer><\/script>');
-      }
+      };
 
       function ready(fn) {
         document.readyState !== "loading"
           ? setTimeout(fn, 0)
           : document.addEventListener("DOMContentLoaded", fn);
-      }
+      };
+
+      ready(function () {
+        // To debug htmx events uncomment the next line
+        // htmx.logAll();
+        function reloadHTMX() {
+          console.log("event turbo:load -- reload HTMX+Hyperscript");
+          window.htmx.process(document.body);
+          window._hyperscript.processNode(document.body);
+        }
+        // When Turbo reloads a page make sure HTMX reinitializes the new content
+        addEventListener("turbo:load", reloadHTMX, false);
+      });      
     </script>
 
     <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" crossorigin="anonymous" defer></script>
 
-    <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js" crossorigin="anonymous" defer></script>
-    <script src="https://unpkg.com/htmx.org@0.3.0/dist/htmx.min.js" crossorigin="anonymous" defer></script>
+    <script type="module" src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.0.0-beta.2-ou6dW2bg0qdKgUED7QEB/@hotwired/turbo.js" crossorigin="anonymous" defer></script>
+    <script type="module" src="https://cdn.skypack.dev/pin/htmx.org@v1.1.0-jjqW4hybBntQkcvy06YC/htmx.org.js" crossorigin="anonymous" defer></script>
     <!-- Using local copy because of a bug -->
     <%# src="https://unpkg.com/hyperscript.org@0.0.2"  crossorigin="anonymous" defer %>
     <%= javascript_pack_tag 'hyperscript', defer: true %>
+    
+    <script src="https://cdn.jsdelivr.net/npm/alpine-turbo-drive-adapter@1.0.x/dist/alpine-turbo-drive-adapter.min.js" crossorigin="anonymous" defer></script>
+    <script type="module" src="https://cdn.skypack.dev/pin/alpinejs@v2.8.0-1LD3gF5g2X9mzV8UZfdv/alpinejs.js" crossorigin="anonymous" defer></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/alpine-turbolinks-adapter@0.3.x/dist/alpine-turbolinks-adapter.min.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" crossorigin="anonymous" defer></script>
-
-
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload', defer: true %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   </head>
 
   <body>

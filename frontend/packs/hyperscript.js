@@ -1,6 +1,6 @@
 //AMD insanity
 (function (root, factory) {
-  if (false && typeof define === "function" && define.amd) {
+  if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
     define([], factory);
   } else {
@@ -83,9 +83,7 @@
       }
 
       function isValidCSSIDChar(c) {
-        return (
-          isAlpha(c) || isNumeric(c) || c === "-" || c === "_" || c === ":"
-        );
+        return isAlpha(c) || isNumeric(c) || c === "-" || c === "_" || c === ":";
       }
 
       function isWhitespace(c) {
@@ -125,14 +123,7 @@
           if (token) {
             return token;
           } else {
-            raiseError(
-              this,
-              "Expected '" +
-                value +
-                "' but found '" +
-                currentToken().value +
-                "'"
-            );
+            raiseError(this, "Expected '" + value + "' but found '" + currentToken().value + "'");
           }
         }
 
@@ -147,11 +138,7 @@
         }
 
         function matchOpToken(value) {
-          if (
-            currentToken() &&
-            currentToken().op &&
-            currentToken().value === value
-          ) {
+          if (currentToken() && currentToken().op && currentToken().value === value) {
             return consumeToken();
           }
         }
@@ -161,19 +148,12 @@
           if (token) {
             return token;
           } else {
-            raiseError(
-              this,
-              "Expected one of " + JSON.stringify([type1, type2, type3])
-            );
+            raiseError(this, "Expected one of " + JSON.stringify([type1, type2, type3]));
           }
         }
 
         function matchTokenType(type1, type2, type3, type4) {
-          if (
-            currentToken() &&
-            currentToken().type &&
-            [type1, type2, type3, type4].indexOf(currentToken().type) >= 0
-          ) {
+          if (currentToken() && currentToken().type && [type1, type2, type3, type4].indexOf(currentToken().type) >= 0) {
             return consumeToken();
           }
         }
@@ -183,24 +163,13 @@
           if (token) {
             return token;
           } else {
-            raiseError(
-              this,
-              "Expected '" +
-                value +
-                "' but found '" +
-                currentToken().value +
-                "'"
-            );
+            raiseError(this, "Expected '" + value + "' but found '" + currentToken().value + "'");
           }
         }
 
         function matchToken(value, type) {
           var type = type || "IDENTIFIER";
-          if (
-            currentToken() &&
-            currentToken().value === value &&
-            currentToken().type === type
-          ) {
+          if (currentToken() && currentToken().value === value && currentToken().type === type) {
             return consumeToken();
           }
         }
@@ -263,22 +232,11 @@
           } else {
             if (isWhitespace(currentChar())) {
               tokens.push(consumeWhitespace());
-            } else if (
-              !possiblePrecedingSymbol() &&
-              currentChar() === "." &&
-              isAlpha(nextChar())
-            ) {
+            } else if (!possiblePrecedingSymbol() && currentChar() === "." && isAlpha(nextChar())) {
               tokens.push(consumeClassReference());
-            } else if (
-              !possiblePrecedingSymbol() &&
-              currentChar() === "#" &&
-              isAlpha(nextChar())
-            ) {
+            } else if (!possiblePrecedingSymbol() && currentChar() === "#" && isAlpha(nextChar())) {
               tokens.push(consumeIdReference());
-            } else if (
-              isAlpha(currentChar()) ||
-              isIdentifierChar(currentChar())
-            ) {
+            } else if (isAlpha(currentChar()) || isIdentifierChar(currentChar())) {
               tokens.push(consumeIdentifier());
             } else if (isNumeric(currentChar())) {
               tokens.push(consumeNumber());
@@ -418,11 +376,7 @@
 
         function possiblePrecedingSymbol() {
           return (
-            isAlpha(lastToken) ||
-            isNumeric(lastToken) ||
-            lastToken === ")" ||
-            lastToken === "}" ||
-            lastToken === "]"
+            isAlpha(lastToken) || isNumeric(lastToken) || lastToken === ")" || lastToken === "}" || lastToken === "]"
           );
         }
 
@@ -463,17 +417,13 @@
         var lines = source.split("\n");
         var line = currentToken ? currentToken.line - 1 : lines.length - 1;
         var contextLine = lines[line];
-        var offset = currentToken
-          ? currentToken.column
-          : contextLine.length - 1;
+        var offset = currentToken ? currentToken.column : contextLine.length - 1;
         return contextLine + "\n" + " ".repeat(offset) + "^^\n\n";
       }
 
       function raiseParseError(tokens, message) {
         message =
-          (message || "Unexpected Token : " + tokens.currentToken().value) +
-          "\n\n" +
-          createParserContext(tokens);
+          (message || "Unexpected Token : " + tokens.currentToken().value) + "\n\n" + createParserContext(tokens);
         var error = new Error(message);
         error.tokens = tokens;
         throw error;
@@ -540,11 +490,7 @@
       function makeEvent(eventName, detail) {
         var evt;
         if (window.CustomEvent && typeof window.CustomEvent === "function") {
-          evt = new CustomEvent(eventName, {
-            bubbles: true,
-            cancelable: true,
-            detail: detail,
-          });
+          evt = new CustomEvent(eventName, { bubbles: true, cancelable: true, detail: detail });
         } else {
           evt = document.createEvent("CustomEvent");
           evt.initCustomEvent(eventName, true, true, detail);
@@ -599,9 +545,7 @@
       var _scriptAttrs = null;
       function getScriptAttributes() {
         if (_scriptAttrs == null) {
-          _scriptAttrs = _hyperscript.config.attributes
-            .replace(/ /g, "")
-            .split(",");
+          _scriptAttrs = _hyperscript.config.attributes.replace(/ /g, "").split(",");
         }
         return _scriptAttrs;
       }
@@ -649,15 +593,8 @@
           var type = "expression";
         }
         ctx = ctx || {};
-        var compiled = _parser
-          .parseElement(type, _lexer.tokenize(src))
-          .transpile();
-        var evalString =
-          "(function(" +
-          Object.keys(ctx).join(",") +
-          "){return " +
-          compiled +
-          "})";
+        var compiled = _parser.parseElement(type, _lexer.tokenize(src)).transpile();
+        var evalString = "(function(" + Object.keys(ctx).join(",") + "){return " + compiled + "})";
         var args = Object.keys(ctx).map(function (key) {
           return ctx[key];
         });
@@ -689,6 +626,7 @@
             }
             var hyperscriptObj = eval(transpiled);
             hyperscriptObj.applyEventListenersTo(elt);
+            triggerEvent(elt, "load");
           }
         }
       }
@@ -720,12 +658,7 @@
         if (typeCheckValue) {
           return value;
         } else {
-          throw new Error(
-            "Typecheck failed!  Expected: " +
-              typeString +
-              ", Found: " +
-              typeName
-          );
+          throw new Error("Typecheck failed!  Expected: " + typeString + ", Found: " + typeName);
         }
       }
 
@@ -860,13 +793,7 @@
             value: value,
             transpile: function () {
               if (this.value) {
-                return (
-                  "({name: '" +
-                  this.name +
-                  "', value: " +
-                  parser.transpile(this.value) +
-                  "})"
-                );
+                return "({name: '" + this.name + "', value: " + parser.transpile(this.value) + "})";
               } else {
                 return "({name: '" + this.name + "'})";
               }
@@ -895,9 +822,7 @@
                 "({" +
                 fields
                   .map(function (field) {
-                    return (
-                      field.name.value + ":" + parser.transpile(field.value)
-                    );
+                    return field.name.value + ":" + parser.transpile(field.value);
                   })
                   .join(", ") +
                 "})"
@@ -927,9 +852,7 @@
                 "({_namedArgList_:true, " +
                 fields
                   .map(function (field) {
-                    return (
-                      field.name.value + ":" + parser.transpile(field.value)
-                    );
+                    return field.name.value + ":" + parser.transpile(field.value);
                   })
                   .join(", ") +
                 "})"
@@ -970,10 +893,7 @@
         };
       });
 
-      _parser.addGrammarElement("millisecondLiteral", function (
-        parser,
-        tokens
-      ) {
+      _parser.addGrammarElement("millisecondLiteral", function (parser, tokens) {
         var number = tokens.requireTokenType(tokens, "NUMBER");
         var factor = 1;
         if (tokens.matchToken("s")) {
@@ -992,8 +912,7 @@
       });
 
       _parser.addGrammarElement("boolean", function (parser, tokens) {
-        var booleanLiteral =
-          tokens.matchToken("true") || tokens.matchToken("false");
+        var booleanLiteral = tokens.matchToken("true") || tokens.matchToken("false");
         if (booleanLiteral) {
           return {
             type: "boolean",
@@ -1104,11 +1023,7 @@
         );
       });
 
-      _parser.addGrammarElement("propertyAccess", function (
-        parser,
-        tokens,
-        root
-      ) {
+      _parser.addGrammarElement("propertyAccess", function (parser, tokens, root) {
         if (tokens.matchOpToken(".")) {
           var prop = tokens.requireTokenType("IDENTIFIER");
           var propertyAccess = {
@@ -1119,19 +1034,11 @@
               return parser.transpile(root) + "." + prop.value;
             },
           };
-          return _parser.parseElement(
-            "indirectExpression",
-            tokens,
-            propertyAccess
-          );
+          return _parser.parseElement("indirectExpression", tokens, propertyAccess);
         }
       });
 
-      _parser.addGrammarElement("functionCall", function (
-        parser,
-        tokens,
-        root
-      ) {
+      _parser.addGrammarElement("functionCall", function (parser, tokens, root) {
         if (tokens.matchOpToken("(")) {
           var args = [];
           if (!tokens.matchOpToken(")")) {
@@ -1157,19 +1064,11 @@
               );
             },
           };
-          return _parser.parseElement(
-            "indirectExpression",
-            tokens,
-            functionCall
-          );
+          return _parser.parseElement("indirectExpression", tokens, functionCall);
         }
       });
 
-      _parser.addGrammarElement("indirectExpression", function (
-        parser,
-        tokens,
-        root
-      ) {
+      _parser.addGrammarElement("indirectExpression", function (parser, tokens, root) {
         var propAccess = parser.parseElement("propertyAccess", tokens, root);
         if (propAccess) {
           return propAccess;
@@ -1188,10 +1087,7 @@
         if (leaf) {
           return parser.parseElement("indirectExpression", tokens, leaf);
         }
-        parser.raiseParseError(
-          tokens,
-          "Unexpected value: " + tokens.currentToken().value
-        );
+        parser.raiseParseError(tokens, "Unexpected value: " + tokens.currentToken().value);
       });
 
       _parser.addGrammarElement("postfixExpression", function (parser, tokens) {
@@ -1248,10 +1144,7 @@
       });
 
       _parser.addGrammarElement("unaryExpression", function (parser, tokens) {
-        return parser.parseAnyOf(
-          ["logicalNot", "negativeNumber", "postfixExpression"],
-          tokens
-        );
+        return parser.parseAnyOf(["logicalNot", "negativeNumber", "postfixExpression"], tokens);
       });
 
       _parser.addGrammarElement("mathOperator", function (parser, tokens) {
@@ -1262,10 +1155,7 @@
         while (mathOp) {
           initialMathOp = initialMathOp || mathOp;
           if (initialMathOp.value !== mathOp.value) {
-            parser.raiseParseError(
-              tokens,
-              "You must parenthesize math operations with different operators"
-            );
+            parser.raiseParseError(tokens, "You must parenthesize math operations with different operators");
           }
           var rhs = parser.parseElement("unaryExpression", tokens);
           expr = {
@@ -1274,13 +1164,7 @@
             lhs: expr,
             rhs: rhs,
             transpile: function () {
-              return (
-                parser.transpile(this.lhs) +
-                " " +
-                this.operator +
-                " " +
-                parser.transpile(this.rhs)
-              );
+              return parser.transpile(this.lhs) + " " + this.operator + " " + parser.transpile(this.rhs);
             },
           };
           mathOp = tokens.matchAnyOpToken("+", "-", "*", "/", "%");
@@ -1292,30 +1176,15 @@
         return parser.parseAnyOf(["mathOperator", "unaryExpression"], tokens);
       });
 
-      _parser.addGrammarElement("comparisonOperator", function (
-        parser,
-        tokens
-      ) {
+      _parser.addGrammarElement("comparisonOperator", function (parser, tokens) {
         var expr = parser.parseElement("mathExpression", tokens);
         var comparisonOp,
           initialComparisonOp = null;
-        comparisonOp = tokens.matchAnyOpToken(
-          "<",
-          ">",
-          "<=",
-          ">=",
-          "==",
-          "===",
-          "!=",
-          "!=="
-        );
+        comparisonOp = tokens.matchAnyOpToken("<", ">", "<=", ">=", "==", "===", "!=", "!==");
         while (comparisonOp) {
           initialComparisonOp = initialComparisonOp || comparisonOp;
           if (initialComparisonOp.value !== comparisonOp.value) {
-            parser.raiseParseError(
-              tokens,
-              "You must parenthesize comparison operations with different operators"
-            );
+            parser.raiseParseError(tokens, "You must parenthesize comparison operations with different operators");
           }
           var rhs = parser.parseElement("mathExpression", tokens);
           expr = {
@@ -1324,37 +1193,16 @@
             lhs: expr,
             rhs: rhs,
             transpile: function () {
-              return (
-                parser.transpile(this.lhs) +
-                " " +
-                this.operator +
-                " " +
-                parser.transpile(this.rhs)
-              );
+              return parser.transpile(this.lhs) + " " + this.operator + " " + parser.transpile(this.rhs);
             },
           };
-          comparisonOp = tokens.matchAnyOpToken(
-            "<",
-            ">",
-            "<=",
-            ">=",
-            "==",
-            "===",
-            "!=",
-            "!=="
-          );
+          comparisonOp = tokens.matchAnyOpToken("<", ">", "<=", ">=", "==", "===", "!=", "!==");
         }
         return expr;
       });
 
-      _parser.addGrammarElement("comparisonExpression", function (
-        parser,
-        tokens
-      ) {
-        return parser.parseAnyOf(
-          ["comparisonOperator", "mathExpression"],
-          tokens
-        );
+      _parser.addGrammarElement("comparisonExpression", function (parser, tokens) {
+        return parser.parseAnyOf(["comparisonOperator", "mathExpression"], tokens);
       });
 
       _parser.addGrammarElement("logicalOperator", function (parser, tokens) {
@@ -1365,10 +1213,7 @@
         while (logicalOp) {
           initialLogicalOp = initialLogicalOp || logicalOp;
           if (initialLogicalOp.value !== logicalOp.value) {
-            parser.raiseParseError(
-              tokens,
-              "You must parenthesize logical operations with different operators"
-            );
+            parser.raiseParseError(tokens, "You must parenthesize logical operations with different operators");
           }
           var rhs = parser.parseElement("comparisonExpression", tokens);
           expr = {
@@ -1478,9 +1323,7 @@
               "var eventListeners = []\n" +
               eventListeners
                 .map(function (el) {
-                  return (
-                    "  eventListeners.push(" + parser.transpile(el) + ");\n"
-                  );
+                  return "  eventListeners.push(" + parser.transpile(el) + ");\n";
                 })
                 .join("") +
               "      function applyEventListenersTo(elt) { _hyperscript.runtime.applyEventListeners(this, elt) }\n" +
@@ -1532,9 +1375,7 @@
               "', function(event){\n" +
               args
                 .map(function (arg) {
-                  return (
-                    "var " + arg.value + " = event.detail." + arg.value + ";"
-                  );
+                  return "var " + arg.value + " = event.detail." + arg.value + ";";
                 })
                 .join("\n") +
               "\n" +
@@ -1555,10 +1396,7 @@
           if (classRef == null) {
             attributeRef = parser.parseElement("attributeRef", tokens);
             if (attributeRef == null) {
-              parser.raiseParseError(
-                tokens,
-                "Expected either a class reference or attribute expression"
-              );
+              parser.raiseParseError(tokens, "Expected either a class reference or attribute expression");
             }
           }
 
@@ -1675,10 +1513,7 @@
           if (classRef == null) {
             attributeRef = parser.parseElement("attributeRef", tokens);
             if (attributeRef == null) {
-              parser.raiseParseError(
-                tokens,
-                "Expected either a class reference or attribute expression"
-              );
+              parser.raiseParseError(tokens, "Expected either a class reference or attribute expression");
             }
           }
           if (tokens.matchToken("on")) {
@@ -1926,10 +1761,7 @@
         if (tokens.matchToken("put")) {
           var value = parser.parseElement("expression", tokens);
 
-          var operation =
-            tokens.matchToken("into") ||
-            tokens.matchToken("before") ||
-            tokens.matchToken("after");
+          var operation = tokens.matchToken("into") || tokens.matchToken("before") || tokens.matchToken("after");
 
           if (operation == null && tokens.matchToken("at")) {
             operation = tokens.matchToken("start") || tokens.matchToken("end");
@@ -1937,21 +1769,14 @@
           }
 
           if (operation == null) {
-            parser.raiseParseError(
-              tokens,
-              "Expected one of 'into', 'before', 'at start of', 'at end of', 'after'"
-            );
+            parser.raiseParseError(tokens, "Expected one of 'into', 'before', 'at start of', 'at end of', 'after'");
           }
           var target = parser.parseElement("target", tokens);
 
-          var directWrite =
-            target.propPath.length === 0 && operation.value === "into";
+          var directWrite = target.propPath.length === 0 && operation.value === "into";
           var symbolWrite = directWrite && target.root.type === "symbol";
           if (directWrite && !symbolWrite) {
-            parser.raiseParseError(
-              tokens,
-              "Can only put directly into symbols, not references"
-            );
+            parser.raiseParseError(tokens, "Can only put directly into symbols, not references");
           }
 
           return {
@@ -1962,9 +1787,7 @@
             value: value,
             transpile: function () {
               if (this.symbolWrite) {
-                return (
-                  "var " + target.root.name + " = " + parser.transpile(value)
-                );
+                return "var " + target.root.name + " = " + parser.transpile(value);
               } else {
                 if (this.op === "into") {
                   var lastProperty = target.propPath.pop(); // steal last property for assignment
@@ -2036,10 +1859,7 @@
           var directWrite = target.propPath.length === 0;
           var symbolWrite = directWrite && target.root.type === "symbol";
           if (directWrite && !symbolWrite) {
-            parser.raiseParseError(
-              tokens,
-              "Can only put directly into symbols, not references"
-            );
+            parser.raiseParseError(tokens, "Can only put directly into symbols, not references");
           }
 
           return {
@@ -2049,9 +1869,7 @@
             value: value,
             transpile: function () {
               if (this.symbolWrite) {
-                return (
-                  "var " + target.root.name + " = " + parser.transpile(value)
-                );
+                return "var " + target.root.name + " = " + parser.transpile(value);
               } else {
                 var lastProperty = target.propPath.pop(); // steal last property for assignment
                 return (

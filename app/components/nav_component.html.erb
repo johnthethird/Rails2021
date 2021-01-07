@@ -51,7 +51,7 @@
       <% else %>
         <div class="navbar-end">
           <div class="navbar-item">
-            <%= button_to 'Login', '/auth/auth0', {method: :post, class: "button is-light"} %>
+            <%= button_to 'Login', '/auth/auth0', {method: :post, class: "button is-light", form: {data: {turbo: false}}} %>
           </div>
         </div>
       <% end %>

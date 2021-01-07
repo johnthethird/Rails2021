@@ -21,16 +21,4 @@ const imagePath = (name) => images(name, true);
 // [1, [2, 3], [4, [5]]].flat(2); // => [1, 2, 3, 4, 5]
 // Promise.resolve(32).then((x) => console.log(x)); // => 32
 
-ready(function () {
-  // To debug htmx events uncomment the next line
-  // htmx.logAll();
-  function reloadHTMX() {
-    console.log("reload HTMX+Hyperscript");
-    window.htmx.process(document.body);
-    window._hyperscript.processNode(document.body);
-  }
-  // When Turbolinks reloads a page make sure HTMX reinitializes the new content
-  addEventListener("turbolinks:load", reloadHTMX, false);
-});
-
 require("stylesheets/application.scss");
